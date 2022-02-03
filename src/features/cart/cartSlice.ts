@@ -20,12 +20,15 @@ const initialState: CartState = {
   errorMessage: "",
 };
 
-export const checkoutCart = createAsyncThunk("cart/checkout", async (_, thunkAPI) => {
-  const state = thunkAPI.getState() as RootState;
-  const items = state.cart.items;
-  const response = await checkout(items);
-  return response;
-});
+export const checkoutCart = createAsyncThunk(
+  "cart/checkout",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
+    const items = state.cart.items;
+    const response = await checkout(items);
+    return response;
+  }
+);
 
 const cartSlice = createSlice({
   name: "cart",
@@ -87,7 +90,7 @@ export function getNumItems(state: RootState) {
 export const getMemoizedNumItems = createSelector(
   (state: RootState) => state.cart.items,
   (items) => {
-    console.log("calling getMemoizedNumItems");
+    // console.log("calling getMemoizedNumItems");
     let numItems = 0;
     for (let id in items) {
       numItems += items[id];
